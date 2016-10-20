@@ -1,12 +1,18 @@
 package com.overseer.util;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+
 import java.util.Properties;
 
 public class PropertiesCache {
 
+	@Autowired
+	private ApplicationContext appContext;
+
 	private Properties configProp = null;
 
 	private PropertiesCache() {
-		IConfigurationPropertyDao configurationPropertyDao =  new ConfigurationPropertyDao();
+		IConfigurationPropertyDao configurationPropertyDao =  (IConfigurationPropertyDao) appContext.getBean("configurationPropertyDao");
 		configProp = configurationPropertyDao.getConfigurationProperties();
 	}
 

@@ -10,24 +10,17 @@ public class CredentialService implements ICredentialService {
 
     private IPasswordHashGeneratorFactory passwordHashGeneratorFactory;
     private IUserCredentialsDao userCredentialsDao;
-    private String passwordKeyDerivationFunction;
-    private String passwordHashAlgorithm;
-    private int passwordSaltLength;
-    private int passwordHashIterationCount;
-    private int passwordHashDerivedKeyLength;
+    private String passwordKeyDerivationFunction = PropertiesCache.getInstance().getProperty("passwordHashCalculator");
+    private String passwordHashAlgorithm = PropertiesCache.getInstance().getProperty("passwordHashAlgorithm");
+    private int passwordSaltLength = Integer.parseInt(PropertiesCache.getInstance().getProperty("passwordSaltLengthInBytes"));
+    private int passwordHashIterationCount = Integer.parseInt(PropertiesCache.getInstance().getProperty("passwordHashIterationCount"));
+    private int passwordHashDerivedKeyLength = Integer.parseInt(PropertiesCache.getInstance().getProperty("passwordHashDerivedKeyLengthInBits"));
+    ;
 
     public CredentialService(IPasswordHashGeneratorFactory passwordHashGeneratorFactory,
                              IUserCredentialsDao userCredentialsDao) {
         this.passwordHashGeneratorFactory = passwordHashGeneratorFactory;
         this.userCredentialsDao = userCredentialsDao;
-        this.passwordKeyDerivationFunction = PropertiesCache.getInstance().getProperty("passwordHashCalculator");
-        this.passwordHashAlgorithm = PropertiesCache.getInstance().getProperty("passwordHashAlgorithm");
-        this.passwordSaltLength = Integer
-                .parseInt(PropertiesCache.getInstance().getProperty("passwordSaltLengthInBytes"));
-        this.passwordHashIterationCount = Integer
-                .parseInt(PropertiesCache.getInstance().getProperty("passwordHashIterationCount"));
-        this.passwordHashDerivedKeyLength = Integer
-                .parseInt(PropertiesCache.getInstance().getProperty("passwordHashDerivedKeyLengthInBits"));
     }
 
     @Override
